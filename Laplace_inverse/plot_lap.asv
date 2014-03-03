@@ -1,0 +1,11 @@
+% Routine that computes and plots the Laplace transformation of given data
+% (of the given characteristic function).
+%
+% Author: RS
+
+function plot_lap(s)
+    
+    linewidth = 2;
+    
+
+end
