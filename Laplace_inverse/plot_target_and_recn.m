@@ -8,11 +8,13 @@ function plot_target_and_recn(t_vec, f, tol)
     hold on
     plot(t_vec, f, 'r-', 'linewidth', 2)
     
+    error = round(norm(f_eval(t_vec) - f)/norm(f_eval(t_vec)) * 1000)/10;
+    
     xlabel('x');
     ylabel('f(x)');
     title('Reconstruction from Laplace transformation data');
     legend('Target', 'Reconstruction', 'Location', 'Southwest');
-    text(1.7, 1, ['tol = ' num2str(tol)])
+    text(1.7, 1, ['tol = ' num2str(tol) '\newlineerror = ' num2str(error) '%'])
     axis([t_vec(1) t_vec(length(t_vec)) -0.3 1.3])
     hold off
 end
