@@ -6,7 +6,7 @@
 function lap = lap_eval(s, k)
 
     if nargin == 1
-       k = 10000; 
+       k = 1000; 
     end
 
     t_vec = linspace(0, 1, k)';
