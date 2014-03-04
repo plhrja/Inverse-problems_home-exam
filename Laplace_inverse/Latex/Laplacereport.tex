@@ -1,0 +1,84 @@
+\documentclass[12pt,a4]{article}
+
+\usepackage{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsfonts}
+\usepackage[dvips]{graphicx}
+
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\C}{{\mathbb C}}
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\ra}{\rightarrow}
+
+
+\title{Inversion of the Laplace transform}
+\author{Firstname Lastname\\Studentnumber}
+
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+{\em Definition and some applications of the Laplace transform. Explanation of what will be done in this study. Mention the ill-posedness of the inversion of the Laplace transform. Include references to literature whenever necessary.}
+
+Let $f:[0,\infty)\rightarrow \R$. The Laplace transform $F$ of $f$ is defined by
+\begin{equation}\label{laplace}
+ F(s) = \int_0^\infty e^{-st}f(t)dt,\quad s\in\C ,
+\end{equation}
+provided that the integral converges. The direct problem is to determine $F$ for a given function $f$ according to (\ref{laplace}). The inverse problem is: {\em given a Laplace transform $F$, find the corresponding function $f$.}
+
+
+
+\section{Materials and Methods}\label{sec:methods}
+
+\subsection{The matrix model}
+
+Assume we know the values of $F$ at these real-valued points:
+$$
+ 0<s_1<s_2<\ldots <s_n<\infty.
+$$ 
+Then we may approximate the integral in (\ref{laplace}) for example with the trapezoidal rule as
+\begin{equation} \label{laptrap}
+\begin{split}
+ \int_0^\infty e^{-st}f(t)dt\, \approx\, \frac{t_k}{k} & \left( \frac{1}{2}e^{-st_1}f(t_1)+e^{-st_2}f(t_2)+e^{-st_3}f(t_3)+\ldots\right.\\   &\ \ \left. +e^{-st_{k-1}}f(t_{k-1})+\frac{1}{2}e^{-st_k}f(t_k)\right) ,
+\end{split}
+\end{equation}
+where vector $t=[t_1\ t_2\ \ldots\ t_k]^T\in\R^k$, $0\leq t_1<t_2<\ldots <t_k$, contains the points at which the unknown function $f$ will be evaluated. By denoting $f_\ell=f(t_\ell), \ \ell=1,\ldots ,k$, and $m_j=F(s_j),\ j=1,\ldots ,n$, and using \eqref{laptrap}, we get a linear model of the form $m=Af+\epsilon$ with
+\begin{equation}\label{LaplaceA} 
+A = \frac{t_k}{k}\begin{bmatrix} \frac{1}{2}e^{-s_1t_1} & e^{-s_1t_2} & e^{-s_1t_3} & \ldots & e^{-s_1t_{k-1}} & \frac{1}{2}e^{-s_1t_k} \\
+                       \frac{1}{2}e^{-s_2t_1} & e^{-s_2t_2} & e^{-s_2t_3} & \ldots & e^{-s_2t_{k-1}} & \frac{1}{2}e^{-s_2t_k} \\
+                       \vdots & & & & & \vdots \\
+                       \frac{1}{2}e^{-s_nt_1} & e^{-s_nt_2} & e^{-s_nt_3} & \ldots & e^{-s_nt_{k-1}} & \frac{1}{2}e^{-s_nt_k} \end{bmatrix}.
+\end{equation}
+
+
+\subsection{The inversion method}
+
+
+\section{Results}\label{sec:results}
+
+{\em The Results section is for a detailed explanation of what happens when the methods of Section \ref{sec:methods} are applied to the materials. There should be no interpretation of what the results might mean, just a dry and factual report with numbers, charts and plots.}
+
+
+\begin{itemize}
+\item[(a)] Compute numerically and plot the Laplace transform of 
+$$
+  f(t) = \left\{\begin{array}{ll}1,&\mbox{ for }0\leq t \leq 1,\\0, &\mbox{ otherwise.}\end{array}\right.
+$$
+
+\item[(b)] Construct matrix $A$ given by (\ref{LaplaceA}) for a suitable choice of points $t_\ell$ and $s_j$. Compute the singular values of $A$. Do you detect ill-posedness?
+
+\item[(c)] Use truncated SVD to compute the inverse Laplace transform of $f$.
+\end{itemize}
+
+
+\section{Discussion}
+
+{\em This section is for interpretations of the results presented in Section \ref{sec:results}. Sometimes this section is called Conclusions, or Discussion and Conclusions.}
+
+\end{document}
+
+
+

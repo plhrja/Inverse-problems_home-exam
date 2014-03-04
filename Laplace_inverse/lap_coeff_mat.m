@@ -3,13 +3,9 @@
 %
 % Author: RS
 
-function lap = lap_coeff_mat(s, k)
+function lap = lap_coeff_mat(s, t_vec)
 
-    if nargin == 1
-       k = length(s) * 10; 
-    end
-    
-    t_vec = linspace(0, 1, k)';
+    k = length(t_vec);
     t_k = t_vec(k);
     lap = meshgrid(exp(-s), zeros(1, k))';
     

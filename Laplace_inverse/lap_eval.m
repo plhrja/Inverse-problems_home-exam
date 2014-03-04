@@ -3,7 +3,7 @@
 %
 % Author: RS
 
-function lapt = lap_eval(s, k)
+function lap = lap_eval(s, k)
 
     if nargin == 1
        k = 100; 

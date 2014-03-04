@@ -20,7 +20,7 @@ alpha = 90;
 
 % Maximum number of iterations. You can modify this value and observe the
 % effects on the reconstruction.
-MAXITER = 50;               
+MAXITER = 200;               
 
 % Smoothing parameter used in the approximate absolute value function
 beta    = .00001; 
@@ -38,7 +38,7 @@ corxn = 40.7467*N/64;
 alphavec = [];
 errorvec = [];
 recnvec = [];
-for alpha = [[20:10:50] [51:1:79] [80:20:500]]
+for alpha = 50:160
     % Optimization routine
     obj    = zeros(MAXITER+1,1);     % We will monitor the value of the objective function
     fold   = zeros(size(target));    % Initial guess
@@ -93,7 +93,4 @@ for alpha = [[20:10:50] [51:1:79] [80:20:500]]
     recnvec = [recnvec; recn(end/2,:)];
 end
 % Save result to file
-save XRsparse_aTV recn alpha target obj
-
-% Show pictures of the results
-XRsparseD_aTV_plot
+save TV_alpha-test_3-3-2014 alphavec errorvec recnvec

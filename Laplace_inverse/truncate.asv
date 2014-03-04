@@ -1,0 +1,15 @@
+% Routine truncates the singular values of the diagonal matrix produced by
+% the SVD algprithm.
+%
+% Author: RS
+
+function x = truncate_SVD_solve(A, b, )
+
+function truncate(D, tol)
+
+    n = min([length(D(:,1)) length(D)]);
+    for k = 1:n
+        D(k,k) = (D(k,k) > tol) * D(k,k);
+    end
+
+end
