@@ -1,0 +1,183 @@
+\documentclass[12pt,a4]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsfonts}
+\usepackage[dvips]{graphicx}
+
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\C}{{\mathbb C}}
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\ind}{{\mathbf{1}}}
+
+
+\title{Inversion of the Laplace transform}
+\author{Robert Sirviö\\013767589}
+
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+Let $f:[0,\infty)\rightarrow \R$. The Laplace transform $F$ of $f$ is defined by
+\begin{equation}\label{laplace}
+ F(s) = \int_0^\infty e^{-st}f(t)dt,\quad s\in\C ,
+\end{equation}
+provided that the integral converges.     
+\newline
+
+
+The Laplace transformations can be very useful in the solution of partial differential equations. A basic class of partial differential equations is applicable to a wide range of problems, which is why the Laplace transformations are used frequently in e.g. system modelling, electrical circuit analysis and in digital signal processing.(\cite{transforms} ch.5.7)
+\newline 
+
+The direct problem is to determine $F$ for a given function $f$ according to (\ref{laplace}). The inverse problem is: {\em given a Laplace transform $F$, find the corresponding function $f$.} Our goal in this study is to solve the inverse problem of the Laplace transformation of a given indicator function using truncated singular value decomposition (denoted truncated SVD). We also justify and reason on the usage of truncated SVD by illustrating the ill-posedness of the inversion of the Laplace transformation.
+
+
+
+\section{Materials and Methods}\label{sec:methods}
+
+\subsection{The matrix model}
+
+Assume we know the values of $F$ at these real-valued points:
+$$
+ 0<s_1<s_2<\ldots <s_n<\infty.
+$$ 
+Then we may approximate the integral in (\ref{laplace}) for example with the trapezoidal rule as
+\begin{equation} \label{laptrap}
+\begin{split}
+ \int_0^\infty e^{-st}f(t)dt\, \approx\, \frac{t_k}{k} & \left( \frac{1}{2}e^{-st_1}f(t_1)+e^{-st_2}f(t_2)+e^{-st_3}f(t_3)+\ldots\right.\\   &\ \ \left. +e^{-st_{k-1}}f(t_{k-1})+\frac{1}{2}e^{-st_k}f(t_k)\right) ,
+\end{split}
+\end{equation}
+where vector $t=[t_1\ t_2\ \ldots\ t_k]^T\in\R^k$, $0\leq t_1<t_2<\ldots <t_k$, contains the points at which the unknown function $f$ will be evaluated. By denoting $f_\ell=f(t_\ell), \ \ell=1,\ldots ,k$, and $m_j=F(s_j),\ j=1,\ldots ,n$, and using \eqref{laptrap}, we get a linear model of the form 
+\begin{equation}\label{linearModel}
+m=Af+\varepsilon
+\end{equation}
+with
+\begin{equation}\label{LaplaceA} 
+A = \frac{t_k}{k}\begin{bmatrix} \frac{1}{2}e^{-s_1t_1} & e^{-s_1t_2} & e^{-s_1t_3} & \ldots & e^{-s_1t_{k-1}} & \frac{1}{2}e^{-s_1t_k} \\
+                       \frac{1}{2}e^{-s_2t_1} & e^{-s_2t_2} & e^{-s_2t_3} & \ldots & e^{-s_2t_{k-1}} & \frac{1}{2}e^{-s_2t_k} \\
+                       \vdots & & & & & \vdots \\
+                       \frac{1}{2}e^{-s_nt_1} & e^{-s_nt_2} & e^{-s_nt_3} & \ldots & e^{-s_nt_{k-1}} & \frac{1}{2}e^{-s_nt_k} \end{bmatrix}.
+\end{equation}
+
+
+\subsection{The inversion method}
+
+
+\subsubsection{Singular value decomposition (SVD)}\label{SVDsec}
+It is considered generally known that any matrix  $A \in \R^{m \times n}$ can be written as
+\begin{equation}\label{SVD}
+A = UDV^T,
+\end{equation}
+
+where $U \in \R^{m \times m}$ and $V \in \R^{n \times n}$ are orthogonal and $D \in \R^{m \times n}$ is a diagonal matrix. \eqref{SVD} is known as the \emph{singular value decomposition} (SVD) of $A$, and the diagonal entries of $D$ are known as the \emph{singular values} of $A$. We define 
+
+\begin{equation}\label{pinv}
+A^+ = VD^+U^T
+\end{equation}
+
+where $D^+ \in \R^{n \times m}$ is a diagonal matrix with diagonal entries 
+
+\begin{equation*}
+d^+_{i,i} = 
+\begin{cases}
+    \frac{1}{d_{i,i}}, & d_{i,i} \neq 0 \\
+    0, & d_{i,i} = 0
+\end{cases}
+,\quad \text{where } d_{i,i} \in D, \,i = 1, \ldots ,\min\{m,n\}.
+\end{equation*}
+It can be proven that the minimum norm solution of a matrix equation $Af = m$, where $f,m \in R^{n \times 1}$, is obtained from $A^+m$ where $A^+$ is defined as in \eqref{pinv} (\cite{samu} p.54). This can then naturally be applied to \eqref{linearModel} yielding $f = A^+m - A^+\varepsilon$, and especially 
+$f = A^+m$ when $\varepsilon = 0_{n \times 1}$. This is further discussed in
+
+
+\subsubsection{Truncated SVD}
+For any $\alpha > 0$ we define the \emph{truncated} SVD by 
+\begin{equation}\label{truncSVD}
+A^+_\alpha = V D^+_\alpha U^T
+\end{equation}
+where $A$, $U$, $D$ and $V$ are defined as in section \ref{SVDsec}, and 
+\begin{equation*}
+(d^+_\alpha)_{i,i} = 
+\begin{cases}
+    \frac{1}{d_{i,i}}, & 
+    d_{i,i} \in \left\{d_{i,i} \in D:d_{i,i} > \alpha \right\} \\
+    0, & \text{otherwise}
+\end{cases}
+,\quad\quad i = 1, \ldots, \min\{m,n\}
+\end{equation*}
+That is, we exclude the singular value entries from the diagonal matrix $D$ that fall below a certain threshold. This is further discussed in
+
+
+\subsection{The basis and materials}
+
+In our study we specify our target function to be defined as an indicator function:
+\begin{equation}\label{fdef}
+f:[0,\infty) \lra \R, \quad f = \ind_{[0,1]},
+\end{equation}
+
+that is
+
+\begin{equation*}
+f(x) = \ind_{[0,1]}(x)=
+\begin{cases}
+    1, \quad x \in [0,1]\\
+    0, \quad \text{otherwise}.
+\end{cases}
+\end{equation*}
+We will construct synthetic data by defining a partition of size $n$ over a predefined domain $[0,a]$, $a < \infty$ and then map the partition over $F$ and finally add some noise to the data. More explicitly, we have a partition $0=s_0 < s_1 < \ldots <s_n = a$ from which we get the data 
+$\{F(s_k) + \varepsilon_k\}_{k = 1\ldots n}$, $\varepsilon_k \geq 0 \quad \forall k=1 \ldots n$. We allow equality to zero for the noise to demonstrate the inverse crime. Now, because of the definition in \eqref{fdef}, we see that for all $s \neq 0$  
+
+\begin{equation*}
+F(s) = \int_0^\infty e^{-st}f(t)dt 
+     = \int_0^\infty e^{-st}\ind_{[0,1]}(t)dt
+     = \int_0^1 e^{-st}dt
+     = -\frac{1}{s}\left(e^{-s} - 1\right)
+\end{equation*}
+
+and
+
+\begin{equation*}
+F(0) = \int_0^1 e^{0}dt = 1,
+\end{equation*}
+which makes the evaluation of the Laplace transform (and thus also the computation of the data) in our case very straight-forward and computationally efficient. This data will then be used to construct the linear model defined by \eqref{linearModel}, which we then attempt solve and reconstruct our target indicator function with truncated SVD.
+
+\section{Results}\label{sec:results}
+
+
+\begin{itemize}
+\item[(a)] Compute numerically and plot the Laplace transform of 
+$$
+  f(t) = \left\{\begin{array}{ll}1,&\mbox{ for }0\leq t \leq 1,\\0, &\mbox{ otherwise.}\end{array}\right.
+$$
+
+\item[(b)] Construct matrix $A$ given by (\ref{LaplaceA}) for a suitable choice of points $t_\ell$ and $s_j$. Compute the singular values of $A$. Do you detect ill-posedness?
+
+\item[(c)] Use truncated SVD to compute the inverse Laplace transform of $f$.
+\end{itemize}
+
+
+\section{Discussion}
+
+{\em This section is for interpretations of the results presented in Section \ref{sec:results}. Sometimes this section is called Conclusions, or Discussion and Conclusions.}
+
+ \newpage
+
+\begin{thebibliography}{9}
+\bibitem{samu}
+	Mueller, Jennifer L. \& Siltanen Samuli \emph{Linear and Nonlinear Inverse Problems with Practical Applications}.\\
+	SIAM, 1:st edition, 2012
+
+\bibitem{transforms}
+    Poularikas, Alexander D. \emph{Transforms and Applications Handbook}.\\
+    CRC Press, 3:rd edition, 2009 
+
+\end{thebibliography}
+
+\end{document}
+
+
+

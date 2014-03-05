@@ -1,4 +1,4 @@
-% Routine that plots the singular values of matrix in a logaritmic scale
+% Routine that plots the singular values of a matrix in a logaritmic scale.
 %
 % Author: RS
 

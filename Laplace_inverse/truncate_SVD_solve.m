@@ -1,5 +1,5 @@
 % Routine truncates the singular values of the diagonal matrix produced by
-% the SVD algprithm.
+% the SVD algprithm and solves the system (in the least square sence).
 %
 % Author: RS
 

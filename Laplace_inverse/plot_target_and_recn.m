@@ -3,7 +3,6 @@
 % Author: RS
 
 function plot_target_and_recn(t_vec, f, tol)
-
     plot(t_vec, f_eval(t_vec));
     hold on
     plot(t_vec, f, 'r-')
@@ -16,10 +15,10 @@ function plot_target_and_recn(t_vec, f, tol)
     title('Reconstruction from Laplace transformation data','fontsize', labelfontsize);
     
     l = legend('Target', 'Reconstruction', 'Location', 'Northeast');
-    set(l,'fontsize', 10);
+    set(l,'fontsize', labelfontsize);
     set(l,'fontweight', 'light');
     
-    text(0.2, 0, ['tol = ' num2str(tol) '\newlineerror = ' num2str(error) '%'], 'fontsize', 10);
+    text(0.2, 0, ['tol = ' num2str(tol) '\newlineerror = ' num2str(error) '%'], 'fontsize', labelfontsize);
     
     axis([t_vec(1) t_vec(length(t_vec)) -0.3 1.3]);
     set(gca, 'fontsize', 9);
@@ -27,5 +26,4 @@ function plot_target_and_recn(t_vec, f, tol)
     
     scrsize=get(0,'Screensize');
     set(gcf,'Position',scrsize)
-
 end

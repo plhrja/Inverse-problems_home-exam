@@ -1,5 +1,6 @@
 % Routine used to illustrate the ill-posedness of the inverse of the
-% Laplace transformation
+% Laplace transformation by graphing the singular values of the coefficient
+% matrix of the linear system.
 %
 % Author: RS
 
