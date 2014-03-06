@@ -1,4 +1,4 @@
-% Evaluates the given characteristic function, that is
+% Evaluates the given indicator function, that is
 % 
 % f(t) = 1 if 0<=t<=1, else f(t) = 0
 %
