@@ -64,6 +64,7 @@ for alpha = [[0.1:0.1:1] [2:1:39] [40:10:200]]
         recn       = recn + a*p;
         r          = r - a*w;
         rho(kkk+1) = r(:).'*r(:);
+        disp(norm(old_recn - recn))
         if norm(old_recn - recn) < sqrt(eps)
            break; 
         end

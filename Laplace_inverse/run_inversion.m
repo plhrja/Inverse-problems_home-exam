@@ -14,13 +14,13 @@ xmax = 3;
 s_xmax = 60;
 
 % The amount of measurement (synthetic data) points
-s_points = 600;
+s_points = 30;
 
 % The amount of points used in the calculation of the reconstruction and the
 % target function
-t_points = 800;
+t_points = 4000;
 
-noise_level = 1e-8;
+noise_level = 1e-9;
 lap_data = create_synthetic_data(xmin, s_xmax, s_points, noise_level);
 t_vec = linspace(xmin, xmax, t_points);
 coeff_mat = lap_coeff_mat(linspace(xmin, s_xmax, s_points), t_vec);
